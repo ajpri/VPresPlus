@@ -31,12 +31,13 @@ metadata {
 			state("present", labelIcon:"st.presence.tile.mobile-present", backgroundColor:"#53a7c0")
 			state("not present", labelIcon:"st.presence.tile.mobile-not-present", backgroundColor:"#ffffff")
 		}
-		main (["button", "presence"])
+		main (["presence", "button"])
 		details(["button", "presence", "refresh"])
 	}
 }
 
 def parse(String description) {
+	log.debug "string disc = $String description, desc = $description"
 	def pair = description.split(":")
 	createEvent(name: pair[0].trim(), value: pair[1].trim())
 }
@@ -52,13 +53,13 @@ def departed() {
 }
 
 def on() {
-	sendEvent(name: "switch", value: "on")
+	sendEvent(name: "switch", value: "on", dispayed: false)
     sendEvent(name: "presence", value: "present")
 
 }
 
 def off() {
-	sendEvent(name: "switch", value: "off")
+	sendEvent(name: "switch", value: "off", dispayed: false)
     sendEvent(name: "presence", value: "not present")
 
 }
